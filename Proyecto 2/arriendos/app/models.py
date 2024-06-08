@@ -30,6 +30,7 @@ class Inmueble(models.Model):
     numero_banos = models.PositiveIntegerField (default=0)
     numero_hab = models.PositiveIntegerField(default=0)
     direccion = models.CharField(max_length=200)
+    descripcion = models.TextField()
 
     def save(self, *args, **kwargs):
         # Lógica personalizada antes de guardar

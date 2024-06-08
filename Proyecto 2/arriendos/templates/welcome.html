@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Bienvenido a Inmobiliario{% endblock title %}
+
+{% block content %}
+<div class="container pb-4 alert alert-success text-center" role="alert" style="background-color: #eeeff4;">
+    <h2 class="alert-heading">¡Bienvenido, <span class="username">{{ user.get_username }}</span> a tus Inmuebles!</h2>
+    <p id="success-message">Te has autenticado exitosamente.</p> 
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
+        {% if user.is_authenticated %}   
+            <li class="nav-item">
+                <a type="button" class="btn btn-primary" aria-current="page" href="{% url 'logout' %}">Cerrar Sesión</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a type="button" class="btn btn-primary" aria-current="page" href="{% url 'login' %}">Iniciar Sesión</a>
+            </li>
+        {% endif %} 
+    </ul>        
+</div>
+
+<style>
+    .flan-img {
+        width: 100%;
+        height: 200px; /* Ajusta esta altura según tus necesidades */
+        object-fit: cover; /* Esta propiedad asegura que la imagen se recorte para llenar el contenedor */
+        border-radius: 15px; /* Ajusta este valor para redondear los bordes según tus necesidades */
+    }
+    .card {
+        border-radius: 15px;
+    }
+    .username {
+        text-transform: uppercase;
+    }
+</style>
+<script>
+    // Seleccionar el elemento del párrafo por su ID
+    var successMessage = document.getElementById("success-message");
+    
+    // Establecer un temporizador para ocultar el mensaje después de 5 segundos (5000 milisegundos)
+    setTimeout(function() {
+        successMessage.style.display = "none"; // Ocultar el elemento
+    }, 5000); // 5000 milisegundos = 5 segundos  
+
+    $(document).ready(function() {
+        $('.flan-title').click(function() {
+            // Alternar la visibilidad de todos los elementos con la clase 'flan-description'
+            $('.flan-description').slideToggle();
+        });
+    });
+</script>
+{% endblock content %}
