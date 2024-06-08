@@ -1,0 +1,11 @@
+{% block contenido %}
+<h1>
+    Iniciar Sesion
+</h1>
+<form  method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-primary mx-2" type="submit">Iniciar Sesion</button>
+    
+</form>
+{% endblock contenido %}
