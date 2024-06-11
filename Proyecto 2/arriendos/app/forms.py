@@ -1,35 +1,30 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import Perfil, Inmueble,Contact
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Perfil, Inmueble
 
 class CustomAuthenticationForm(AuthenticationForm):
-    username = forms.CharField(
-        label="Nombre de usuario",
-        widget=forms.TextInput(attrs={'class': 'form-control text-center'})
-    )
-    password = forms.CharField(
-        label="Contraseña",
-        widget=forms.PasswordInput(attrs={'class': 'form-control text-center'})
-    )
-
+    # Agrega cualquier personalización que necesites aquí
+    pass
 class UserForm(UserCreationForm):
+    
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2')
+        fields = ('username','first_name', 'last_name', 'email', 'password1', 'password2')
         labels = {
-            'first_name': 'Nombre',
+            'username':'Nombre de Usuario',
+            'first_name':'Nombre', 
             'last_name': 'Apellido',
-            'username': 'Nombre de usuario',
-            'email': 'Correo electrónico',
-            'password1': 'Contraseña',
-            'password2': 'Confirmar contraseña',
+            'email':'Correo electronico', 
+            'password1':'Contraseña', 
+            'password2':'Repita la contraseña'
         }
-
+    
 class PerfilForm(forms.ModelForm):
     class Meta:
         model = Perfil
-        fields = ('tipo_usuario','rut','direccion','cuidad','telefono', 'correo' )
+        fields = ('tipo_usuario','rut','direccion','telefono')
+
 
 class InmuebleForm(forms.ModelForm):
     #id_usuario = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -39,7 +34,7 @@ class InmuebleForm(forms.ModelForm):
         fields = (
             'id_tipo_inmueble','id_comuna','id_region', 
             'nombre_inmueble', 'm2_construido', 'numero_banos', 
-            'numero_hab','direccion', 'descripcion'
+            'numero_hab','direccion', 'descripcion','imagen_url'
             )   #registra todos los campos disponibles
 
         labels = {
@@ -52,4 +47,10 @@ class InmuebleForm(forms.ModelForm):
             'numero_hab':'Numero de habitaciones',
             'direccion':'Direccion',
             'descripcion':'Descripcion',
+            'imagen_url': 'Imagen del Inmueble',
             }   #registra todos los campos disponibles
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ('correo','nombre','mensaje')
